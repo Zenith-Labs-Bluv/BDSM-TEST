@@ -233,80 +233,8 @@
         <button class="modal-button" onclick="closeModal()">확인</button>
     </div>
 
-    <!-- Firebase SDK -->
     <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js';
-        import { getDatabase, ref, push } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js';
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyD_CHtoN2qgDHj5JRxUOzeyc9eSyP11tO4",
-            authDomain: "bluv-test.firebaseapp.com",
-            databaseURL: "https://bluv-test-default-rtdb.firebaseio.com/",
-            projectId: "bluv-test",
-            storageBucket: "bluv-test.firebasestorage.app",
-            messagingSenderId: "1090738855249",
-            appId: "1:1090738855249:web:980200f35ddffdf0a04770",
-            measurementId: "G-1TBGY1H1CC"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-
-        // 결과 이미지 가져오기 함수
-        async function displayResultImage(gender, tendency, topTendency) {
-            const imagePath = `./images/${gender}/${tendency}/${topTendency}.webp`;
-            const resultImage = document.getElementById("resultImage");
-            resultImage.src = imagePath;
-        }
-
-        // 상위 2개 성향 찾기 함수
-        function getTopTendencies(scores) {
-            const tendencyScores = Object.entries(scores).filter(
-                ([tendency]) => tendency !== 'dom_vanilla' && tendency !== 'sub_vanilla'
-            );
-            tendencyScores.sort(([, a], [, b]) => b - a);
-
-            return {
-                topTendency: tendencyScores[0][0],
-                topScore: tendencyScores[0][1],
-                secondTendency: tendencyScores[1][0],
-                secondScore: tendencyScores[1][1]
-            };
-        }
-
-        // 결과 처리 및 저장
-        async function processTestResult() {
-            try {
-                const gender = localStorage.getItem('userGender');
-                const tendency = localStorage.getItem('userTendency');
-                const scores = JSON.parse(localStorage.getItem(
-                    tendency === 'dom' ? 'domScores' : 'subScores'
-                ));
-
-                const { topTendency, topScore, secondTendency, secondScore } = getTopTendencies(scores);
-                // 이미지 표시
-                displayResultImage(gender, tendency, topTendency);
-
-                // Firestore에 데이터 저장
-                const testData = {
-                    gender,
-                    tendency,
-                    totalScores: scores,
-                    topTendency: { name: topTendency, score: topScore },
-                    secondTendency: { name: secondTendency, score: secondScore },
-                    timestamp: new Date().toISOString()
-                };
-
-                const resultsRef = ref(db, 'results/');
-                await push(resultsRef, testData);
-                console.log('Push Success:', testData);
-            } catch (error) {
-                console.error('Error saving data:', error);
-            }
-        }
-
-        // 페이지 로드 시 실행
-        window.addEventListener('load', processTestResult);
+        const _0x451d8f = _0xc4aa; (function (_0x8a723b, _0x152225) { const _0x3d19d8 = _0xc4aa, _0x2f129e = _0x8a723b(); while (!![]) { try { const _0x1e8d45 = -parseInt(_0x3d19d8(0xc2)) / 0x1 * (parseInt(_0x3d19d8(0xc5)) / 0x2) + parseInt(_0x3d19d8(0xb7)) / 0x3 * (-parseInt(_0x3d19d8(0xc3)) / 0x4) + -parseInt(_0x3d19d8(0xbe)) / 0x5 + -parseInt(_0x3d19d8(0xc4)) / 0x6 + parseInt(_0x3d19d8(0xb2)) / 0x7 * (parseInt(_0x3d19d8(0xcc)) / 0x8) + -parseInt(_0x3d19d8(0xd0)) / 0x9 * (parseInt(_0x3d19d8(0xca)) / 0xa) + parseInt(_0x3d19d8(0xd5)) / 0xb; if (_0x1e8d45 === _0x152225) break; else _0x2f129e['push'](_0x2f129e['shift']()); } catch (_0x368f34) { _0x2f129e['push'](_0x2f129e['shift']()); } } }(_0x52f5, 0x7b165)); import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js'; import { getDatabase, ref, push } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js'; function _0x52f5() { const _0x33043d = ['getElementById', 'userTendency', 'dom', '3198010ogEsZC', '1:1090738855249:web:980200f35ddffdf0a04770', 'subScores', 'AIzaSyD_CHtoN2qgDHj5JRxUOzeyc9eSyP11tO4', '14125ZGHzni', '16gkyBny', '5065290KBhpxp', '40IuruXn', 'addEventListener', '1090738855249', 'Error\x20saving\x20data:', 'results/', '10ZQpqjo', 'getItem', '443528qfvDcV', 'toISOString', 'parse', 'src', '3230523AoRoOQ', 'sub_vanilla', 'bluv-test', 'https://bluv-test-default-rtdb.firebaseio.com/', 'G-1TBGY1H1CC', '25745676OIQRbX', 'load', 'log', 'userGender', '63CPvWzy', 'filter', 'domScores', 'resultImage', 'error', '157542ZIAPfA', 'dom_vanilla', 'Push\x20Success:', '.webp']; _0x52f5 = function () { return _0x33043d; }; return _0x52f5(); } function _0xc4aa(_0x24f640, _0x27fb4f) { const _0x52f5c0 = _0x52f5(); return _0xc4aa = function (_0xc4aa49, _0x9b505e) { _0xc4aa49 = _0xc4aa49 - 0xb0; let _0x5b7e16 = _0x52f5c0[_0xc4aa49]; return _0x5b7e16; }, _0xc4aa(_0x24f640, _0x27fb4f); } const firebaseConfig = { 'apiKey': _0x451d8f(0xc1), 'authDomain': 'bluv-test.firebaseapp.com', 'databaseURL': _0x451d8f(0xd3), 'projectId': _0x451d8f(0xd2), 'storageBucket': 'bluv-test.firebasestorage.app', 'messagingSenderId': _0x451d8f(0xc7), 'appId': _0x451d8f(0xbf), 'measurementId': _0x451d8f(0xd4) }, app = initializeApp(firebaseConfig), db = getDatabase(app); async function displayResultImage(_0x5f5df2, _0x32bd8d, _0x40c5cc) { const _0x4fe68e = _0x451d8f, _0x4a0d0d = './images/' + _0x5f5df2 + '/' + _0x32bd8d + '/' + _0x40c5cc + _0x4fe68e(0xba), _0x402e3b = document[_0x4fe68e(0xbb)](_0x4fe68e(0xb5)); _0x402e3b[_0x4fe68e(0xcf)] = _0x4a0d0d; } function getTopTendencies(_0x4f2cbb) { const _0x33e38e = _0x451d8f, _0xdc9fd6 = Object['entries'](_0x4f2cbb)[_0x33e38e(0xb3)](([_0x44f955]) => _0x44f955 !== _0x33e38e(0xb8) && _0x44f955 !== _0x33e38e(0xd1)); return _0xdc9fd6['sort'](([, _0xbb2ebe], [, _0x407d53]) => _0x407d53 - _0xbb2ebe), { 'topTendency': _0xdc9fd6[0x0][0x0], 'topScore': _0xdc9fd6[0x0][0x1], 'secondTendency': _0xdc9fd6[0x1][0x0], 'secondScore': _0xdc9fd6[0x1][0x1] }; } async function processTestResult() { const _0x26ba77 = _0x451d8f; try { const _0x5f3c86 = localStorage[_0x26ba77(0xcb)](_0x26ba77(0xb1)), _0x56ff02 = localStorage[_0x26ba77(0xcb)](_0x26ba77(0xbc)), _0x56f9b7 = JSON[_0x26ba77(0xce)](localStorage[_0x26ba77(0xcb)](_0x56ff02 === _0x26ba77(0xbd) ? _0x26ba77(0xb4) : _0x26ba77(0xc0))), { topTendency: _0x1d469d, topScore: _0x4c5ac0, secondTendency: _0x31e827, secondScore: _0x2dff83 } = getTopTendencies(_0x56f9b7); displayResultImage(_0x5f3c86, _0x56ff02, _0x1d469d); const _0x53e272 = { 'gender': _0x5f3c86, 'tendency': _0x56ff02, 'totalScores': _0x56f9b7, 'topTendency': { 'name': _0x1d469d, 'score': _0x4c5ac0 }, 'secondTendency': { 'name': _0x31e827, 'score': _0x2dff83 }, 'timestamp': new Date()[_0x26ba77(0xcd)]() }, _0x5f2e49 = ref(db, _0x26ba77(0xc9)); await push(_0x5f2e49, _0x53e272), console[_0x26ba77(0xb0)](_0x26ba77(0xb9), _0x53e272); } catch (_0x48ad0d) { console[_0x26ba77(0xb6)](_0x26ba77(0xc8), _0x48ad0d); } } window[_0x451d8f(0xc6)](_0x451d8f(0xd6), processTestResult);
     </script>
     <script>
         // BLUV 서비스로 이동

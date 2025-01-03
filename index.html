@@ -116,42 +116,13 @@
         <h2 class="sub-title">나의 숨겨진 성향이 만화 속 캐릭터라면?</h2>
         <img src="./images/test_start.webp" alt="시작" class="image-placeholder">
         <button onclick="startTest()" class="start-button">테스트 시작하기</button>
-        <div class="participant-count">참여자 수 | <span id="counter">0</span>명</div>
+        <div class="participant-count">참여자 수 | <span id="counter"> </span>명</div>
         <div class="hint-message">쉿,
             당신만을 위한 공간 BDSM Lover,
             BLUV</div>
     </div>
-    <script type="module"> // 카운터 초기화 및 표시
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js';
-        import { getDatabase, ref, get } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js';
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyD_CHtoN2qgDHj5JRxUOzeyc9eSyP11tO4",
-            authDomain: "bluv-test.firebaseapp.com",
-            databaseURL: "https://bluv-test-default-rtdb.firebaseio.com/",
-            projectId: "bluv-test",
-            storageBucket: "bluv-test.firebasestorage.app",
-            messagingSenderId: "1090738855249",
-            appId: "1:1090738855249:web:980200f35ddffdf0a04770",
-            measurementId: "G-1TBGY1H1CC"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-
-        async function initializeCounter() {
-            try {
-                const snapshot = await get(ref(db, 'results/'));
-                const data = snapshot.val();
-                const length = Object.keys(data).length;
-                document.getElementById('counter').textContent = Number(length).toLocaleString();
-            } catch (error) {
-                console.error('Error getting data length:', error.message);
-            }
-        }
-
-        // 페이지 로드 시 카운터 초기화
-        window.addEventListener('load', initializeCounter);
+    <script type="module">
+        const _0x2f60ee = _0x43df; (function (_0x50ba7a, _0x75de18) { const _0x3d1120 = _0x43df, _0x2f7da2 = _0x50ba7a(); while (!![]) { try { const _0x566dbf = parseInt(_0x3d1120(0x19e)) / 0x1 * (parseInt(_0x3d1120(0x1a2)) / 0x2) + parseInt(_0x3d1120(0x1a7)) / 0x3 + -parseInt(_0x3d1120(0x1a1)) / 0x4 * (parseInt(_0x3d1120(0x1a5)) / 0x5) + -parseInt(_0x3d1120(0x1af)) / 0x6 * (-parseInt(_0x3d1120(0x1a8)) / 0x7) + parseInt(_0x3d1120(0x1a9)) / 0x8 * (-parseInt(_0x3d1120(0x1b2)) / 0x9) + parseInt(_0x3d1120(0x199)) / 0xa * (-parseInt(_0x3d1120(0x1b4)) / 0xb) + parseInt(_0x3d1120(0x1a6)) / 0xc; if (_0x566dbf === _0x75de18) break; else _0x2f7da2['push'](_0x2f7da2['shift']()); } catch (_0x25d601) { _0x2f7da2['push'](_0x2f7da2['shift']()); } } }(_0x5046, 0xb939a)); import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js'; import { getDatabase, ref, get } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js'; const firebaseConfig = { 'apiKey': _0x2f60ee(0x1a3), 'authDomain': _0x2f60ee(0x19f), 'databaseURL': _0x2f60ee(0x1a4), 'projectId': _0x2f60ee(0x1b5), 'storageBucket': _0x2f60ee(0x1b0), 'messagingSenderId': _0x2f60ee(0x19d), 'appId': '1:1090738855249:web:980200f35ddffdf0a04770', 'measurementId': _0x2f60ee(0x1ac) }, app = initializeApp(firebaseConfig), db = getDatabase(app); async function initializeCounter() { const _0x3be785 = _0x2f60ee; try { const _0x206167 = await get(ref(db, _0x3be785(0x198))), _0xab3b = _0x206167[_0x3be785(0x19c)](), _0x414b66 = Object[_0x3be785(0x1a0)](_0xab3b)['length']; document[_0x3be785(0x1b3)](_0x3be785(0x1ad))[_0x3be785(0x19a)] = Number(_0x414b66)[_0x3be785(0x19b)](); } catch (_0x25332f) { console['error'](_0x3be785(0x1b1), _0x25332f[_0x3be785(0x1aa)]); } } function _0x5046() { const _0x29c9cf = ['6PVGbqo', 'bluv-test.firebasestorage.app', 'Error\x20getting\x20data\x20length:', '522TNOtGG', 'getElementById', '2531837AjeMGH', 'bluv-test', 'results/', '10HZRBFU', 'textContent', 'toLocaleString', 'val', '1090738855249', '2yZhAVC', 'bluv-test.firebaseapp.com', 'keys', '4RHtoeY', '1217036rhMxlh', 'AIzaSyD_CHtoN2qgDHj5JRxUOzeyc9eSyP11tO4', 'https://bluv-test-default-rtdb.firebaseio.com/', '6985935BrGxPu', '9384804ZAToJj', '1076262dAjLvL', '3396127YRtQqH', '63032nEyMqz', 'message', 'addEventListener', 'G-1TBGY1H1CC', 'counter', 'load']; _0x5046 = function () { return _0x29c9cf; }; return _0x5046(); } function _0x43df(_0x4858df, _0x2dce79) { const _0x50462e = _0x5046(); return _0x43df = function (_0x43dfb7, _0x10b732) { _0x43dfb7 = _0x43dfb7 - 0x198; let _0x4250b0 = _0x50462e[_0x43dfb7]; return _0x4250b0; }, _0x43df(_0x4858df, _0x2dce79); } window[_0x2f60ee(0x1ab)](_0x2f60ee(0x1ae), initializeCounter);
     </script>
     <script>
         // 테스트 시작 함수 수정
