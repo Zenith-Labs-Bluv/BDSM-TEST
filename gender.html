@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>성별 선택</title>
+    <style>
+        :root {
+            --primary-color: #7B6CFF;
+            --gradient-color: linear-gradient(135deg, #7B6CFF, #6C9FFF);
+            --bg-color: #050505;
+            --card-bg: #1A1A1A;
+            --text-color: #FFFFFF;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Pretendard', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .smartphone-mockup {
+            width: 360px;
+            height: 800px;
+            padding: 20px;
+            border-radius: 40px;
+            background: var(--card-bg);
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            width: 160px;
+            margin: 0 auto 20px;
+        }
+
+        .progress-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 20px 0 40px;
+        }
+
+        .back-button {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .back-button svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .progress-bar {
+            flex-grow: 1;
+            height: 6px;
+            background: #E8E8E8;
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 33.33%;
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 100px;
+        }
+
+        .progress-text {
+            color: #999;
+            font-size: 14px;
+            min-width: 40px;
+            text-align: right;
+        }
+
+        .question {
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+            margin: 0 0 40px;
+            line-height: 1.5;
+            word-break: keep-all;
+            padding: 0 20px;
+        }
+
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 0 20px;
+        }
+
+        .option {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            border-radius: 100px;
+            padding: 20px;
+            color: var(--text-color);
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option.selected {
+            background: var(--primary-color);
+        }
+
+        .next-button {
+            background: var(--gradient-color);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 100px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: auto;
+            margin-bottom: 40px;
+            width: calc(100% - 40px);
+            align-self: center;
+        }
+
+        .next-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="smartphone-mockup">
+        <img src="logo.png" alt="로고" class="logo">
+
+        <div class="progress-container">
+            <button class="back-button" onclick="goBack()">
+                <svg viewBox="0 0 24 24">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+                </svg>
+            </button>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <span class="progress-text">2/6</span>
+        </div>
+
+        <div class="question">성별이 어떻게 되세요?</div>
+
+        <div class="option-group">
+            <button class="option" onclick="selectGender('male')">남자</button>
+            <button class="option" onclick="selectGender('female')">여자</button>
+        </div>
+
+        <button class="next-button" onclick="saveGenderAndProceed()" disabled>다음</button>
+    </div>
+
+    <script>
+        let selectedGender = '';
+        const nextButton = document.querySelector('.next-button');
+
+        function selectGender(gender) {
+            selectedGender = gender;
+
+            // 선택된 옵션 스타일 변경
+            document.querySelectorAll('.option').forEach(button => {
+                button.classList.remove('selected');
+            });
+
+            // 선택된 성별에 해당하는 버튼 찾아서 selected 클래스 추가
+            const selectedButton = document.querySelector(`.option[onclick*="${gender}"]`);
+            if (selectedButton) {
+                selectedButton.classList.add('selected');
+            }
+
+            // 다음 버튼 활성화
+            nextButton.disabled = false;
+        }
+
+        function saveGenderAndProceed() {
+            if (selectedGender) {
+                localStorage.setItem('userGender', selectedGender);
+                window.location.href = 'tendency.html';
+            } else {
+                alert('성별을 선택해 주세요.');
+            }
+        }
+
+        // 페이지 로드 시 실행
+        window.addEventListener('load', function () {
+            // 이전에 선택된 성별이 있다면 표시
+            const savedGender = localStorage.getItem('userGender');
+            if (savedGender) {
+                selectGender(savedGender);
+            }
+        });
+
+        // 뒤로가기 함수 추가
+        function goBack() {
+            // localStorage 데이터 초기화
+            localStorage.removeItem('gender');
+            localStorage.removeItem('tendency');
+            localStorage.removeItem('squestion1Answers');
+            localStorage.removeItem('squestion2Answers');
+            localStorage.removeItem('squestion3Answers');
+            localStorage.removeItem('dquestion1Answers');
+            localStorage.removeItem('dquestion2Answers');
+            localStorage.removeItem('dquestion3Answers');
+            localStorage.removeItem('subScores');
+            localStorage.removeItem('domScores');
+            localStorage.removeItem('userGender');
+            localStorage.removeItem('userTendency');
+
+            // start.html로 이동
+            window.location.href = '/';
+        }
+    </script>
+</body>
+
+</html>

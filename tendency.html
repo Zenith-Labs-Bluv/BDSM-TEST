@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>성향 선택</title>
+    <style>
+        :root {
+            --primary-color: #7B6CFF;
+            --gradient-color: linear-gradient(135deg, #7B6CFF, #6C9FFF);
+            --bg-color: #050505;
+            --card-bg: #1A1A1A;
+            --text-color: #FFFFFF;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Pretendard', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .smartphone-mockup {
+            width: 360px;
+            height: 800px;
+            padding: 20px;
+            border-radius: 40px;
+            background: var(--card-bg);
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            width: 160px;
+            margin: 0 auto 20px;
+        }
+
+        .progress-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 20px 0 40px;
+        }
+
+        .back-button {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .back-button svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .progress-bar {
+            flex-grow: 1;
+            height: 6px;
+            background: #E8E8E8;
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 50%;
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 100px;
+        }
+
+        .progress-text {
+            color: #999;
+            font-size: 14px;
+            min-width: 40px;
+            text-align: right;
+        }
+
+        .question {
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+            margin: 0 0 40px;
+            line-height: 1.5;
+            word-break: keep-all;
+            padding: 0 20px;
+        }
+
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 0 20px;
+        }
+
+        .option {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            border-radius: 100px;
+            padding: 20px;
+            color: var(--text-color);
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option.selected {
+            background: var(--primary-color);
+        }
+
+        .note {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            margin: 20px 0;
+            padding: 0 20px;
+            line-height: 1.5;
+        }
+
+        .next-button {
+            background: var(--gradient-color);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 100px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: auto;
+            margin-bottom: 40px;
+            width: calc(100% - 40px);
+            align-self: center;
+        }
+
+        .next-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="smartphone-mockup">
+        <img src="logo.png" alt="로고" class="logo">
+        
+        <div class="progress-container">
+            <button class="back-button" onclick="location.href='gender.html'">
+                <svg viewBox="0 0 24 24">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                </svg>
+            </button>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <span class="progress-text">3/6</span>
+        </div>
+
+        <div class="question">관계에서 주로 상대방을<br>이끌고 주도하나요?</div>
+        
+        <div class="option-group">
+            <button class="option" onclick="selectTendency('dom')">네 (돔 성향)</button>
+            <button class="option" onclick="selectTendency('sub')">아니요 (섭 성향)</button>
+        </div>
+
+        <p class="note">* 스위치 성향은 정확성을 위해 돔/섭<br>각각 한번씩 진행해주세요</p>
+
+        <button class="next-button" onclick="nextPage()" disabled>다음</button>
+    </div>
+
+    <script>
+        let selectedTendency = '';
+        const nextButton = document.querySelector('.next-button');
+
+        function selectTendency(tendency) {
+            selectedTendency = tendency;
+            
+            // 선택된 옵션 스타일 변경
+            document.querySelectorAll('.option').forEach(button => {
+                button.classList.remove('selected');
+            });
+            
+            // 선택된 성향에 해당하는 버튼 찾아서 selected 클래스 추가
+            const selectedButton = document.querySelector(`.option[onclick*="${tendency}"]`);
+            if (selectedButton) {
+                selectedButton.classList.add('selected');
+            }
+            
+            // 다음 버튼 활성화
+            nextButton.disabled = false;
+        }
+
+        // 성향 점수 초기화 함수
+        function initializeScores() {
+            const domScores = {
+                'master_mistress': 0,  // 마스터/미스트레스
+                'hunter': 0,           // 헌터
+                'brat_tamer': 0,       // 브랫테이머
+                'owner': 0,            // 오너
+                'daddy_mommy': 0,      // 대디/마미
+                'sadist': 0,           // 사디스트
+                'spanker': 0,          // 스팽커
+                'degrader': 0,         // 디그레이더
+                'rigger': 0,           // 리거
+                'dominant': 0,         // 도미넌트
+                'top': 0,              // 탑
+                'boss': 0              // 보스
+            };
+
+            const subScores = {
+                'slave': 0,            // 슬레이브
+                'prey': 0,             // 프레이
+                'brat': 0,             // 브랫
+                'pet': 0,              // 펫
+                'little': 0,           // 리틀
+                'masochist': 0,        // 마조히스트
+                'spanky': 0,           // 스팽키
+                'degradee': 0,         // 디그레이디
+                'rope_bunny': 0,       // 로프버니
+                'submissive': 0,       // 서브미시브
+                'bottom': 0,           // 바텀
+                'servant': 0           // 서번트
+            };
+
+            const otherScores = {
+                'dom_vanilla': 0,    // 돔 바닐라 (기존 vanilla에서 변경)
+                'sub_vanilla': 0     // 섭 바닐라 (새로 추가)
+            };
+
+            // 선택된 성향에 따라 해당하는 점수 세트만 저장
+            if (selectedTendency === 'dom') {
+                localStorage.setItem('domScores', JSON.stringify(domScores));
+                localStorage.setItem('otherScores', JSON.stringify({
+                    'dom_vanilla': 0
+                }));
+            } else if (selectedTendency === 'sub') {
+                localStorage.setItem('subScores', JSON.stringify(subScores));
+                localStorage.setItem('otherScores', JSON.stringify({
+                    'sub_vanilla': 0
+                }));
+            }
+        }
+
+        // 다음 페이지로 이동하는 함수 수정
+        function nextPage() {
+            if (selectedTendency) {
+                localStorage.setItem('userTendency', selectedTendency);
+                initializeScores();  // 점수 초기화
+                
+                // 선택된 성향에 따라 다른 페이지로 이동
+                if (selectedTendency === 'dom') {
+                    window.location.href = 'dquestion1.html';
+                } else if (selectedTendency === 'sub') {
+                    window.location.href = 'squestion1.html';
+                }
+            } else {
+                alert('성향을 선택해주세요.');
+            }
+        }
+
+        // 페이지 로드 시 실행되는 함수에 점수 초기화 추가
+        window.addEventListener('load', function() {
+            // 성별 선택 여부 확인
+            const gender = localStorage.getItem('userGender');
+            if (!gender) {
+                location.href = 'gender.html';
+                return;
+            }
+
+            // 이전에 선택된 성향이 있다면 표시
+            const savedTendency = localStorage.getItem('userTendency');
+            if (savedTendency) {
+                selectTendency(savedTendency);
+                selectedTendency = savedTendency;
+                initializeScores();  // 저장된 성향이 있을 경우에도 점수 초기화
+            }
+        });
+    </script>
+</body>
+</html>

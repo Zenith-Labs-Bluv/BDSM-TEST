@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>성향 테스트</title>
+    <style>
+        :root {
+            --primary-color: #7B6CFF;
+            --gradient-color: linear-gradient(135deg, #7B6CFF, #6C9FFF);
+            --bg-color: #050505;
+            --card-bg: #1A1A1A;
+            --text-color: #FFFFFF;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Pretendard', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .smartphone-mockup {
+            width: 360px;
+            height: 800px;
+            padding: 20px;
+            border-radius: 40px;
+            background: var(--card-bg);
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo {
+            width: 120px;
+            margin: 40px 0;
+        }
+
+        .main-title {
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+
+        .sub-title {
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.5;
+            word-break: keep-all;
+        }
+
+        .image-placeholder {
+            width: calc(100% - 40px);
+            border-radius: 20px;
+            margin-bottom: 60px;
+        }
+
+        .start-button {
+            background: var(--gradient-color);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 100px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            margin-top: auto;
+            margin-bottom: 16px;
+            width: calc(100% - 40px);
+            max-width: 320px;
+        }
+
+        .start-button:hover {
+            transform: scale(1.02);
+        }
+
+        .start-button:active {
+            transform: scale(0.98);
+        }
+
+        .hint-message {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+
+        .participant-count {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 15px;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="smartphone-mockup">
+        <img src="logo.png" alt="로고" class="logo">
+
+        <h1 class="main-title"> BDSM 성향 테스트</h1>
+        <h2 class="sub-title"> 나의 숨겨진 성향이 만화 속 캐릭터라면?</h2>
+
+
+        <img src="test_start.png" alt="시작" class="image-placeholder">
+
+        <button onclick="startTest()" class="start-button">테스트 시작하기</button>
+        <div class="participant-count">참여자 수 | <span id="counter">0</span> 명</div>
+        <div class="hint-message">쉿, 당신만을 위한 공간 BDSM Lover, BLUV</div>
+    </div>
+
+    <script>
+        // 카운터 초기화 및 표시
+        function initializeCounter() {
+            let count = localStorage.getItem('participantCount');
+            if (!count) {
+                localStorage.setItem('participantCount', '0');  // 초기값 0으로 설정
+                count = '0';
+            }
+            document.getElementById('counter').textContent = Number(count).toLocaleString();
+        }
+
+        // 테스트 시작 함수 수정
+        function startTest() {
+            // 참여자 수 증가
+            let count = parseInt(localStorage.getItem('participantCount') || '0');  // 기본값 0으로 설정
+            count++;
+            localStorage.setItem('participantCount', count.toString());
+            document.getElementById('counter').textContent = count.toLocaleString();
+
+            // 기존 데이터 초기화 및 페이지 이동
+            localStorage.removeItem('gender');
+            localStorage.removeItem('tendency');
+            localStorage.removeItem('squestion1Answers');
+            localStorage.removeItem('squestion2Answers');
+            localStorage.removeItem('squestion3Answers');
+            localStorage.removeItem('dquestion1Answers');
+            localStorage.removeItem('dquestion2Answers');
+            localStorage.removeItem('dquestion3Answers');
+
+            window.location.href = '/gender.html';
+        }
+
+        // 페이지 로드 시 카운터 초기화
+        window.addEventListener('load', function () {
+            initializeCounter();
+        });
+    </script>
+</body>
+
+</html>
