@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -165,6 +166,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="smartphone-mockup">
         <!-- 결과 이미지 컨테이너 -->
@@ -172,7 +174,7 @@
             <img id="resultImage" src="" alt="테스트 결과" class="result-image">
             <span class="placeholder-text">결과 이미지가 이곳에 표시됩니다</span>
         </div>
-        
+
         <!-- 버튼 컨테이너 -->
         <div class="button-container">
             <button class="action-button primary-button" onclick="goToBluv()">
@@ -208,13 +210,14 @@
                   </svg>                  
             </button>
             <div class="restart-hint">테스트 다시하기</div>
-        </div>
+        </div>-->
 
         <!-- 테스트 다시하기 아이콘 버튼 추가 -->
         <div class="restart-container">
             <button class="restart-button" onclick="restartTest()">
                 <svg viewBox="0 0 24 24">
-                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                    <path
+                        d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
                 </svg>
             </button>
             <div class="restart-hint">다시하기</div>
@@ -270,7 +273,7 @@
                 ([tendency]) => tendency !== 'dom_vanilla' && tendency !== 'sub_vanilla'
             );
             tendencyScores.sort(([, a], [, b]) => b - a);
-            
+
             return {
                 topTendency: tendencyScores[0][0],
                 topScore: tendencyScores[0][1],
@@ -287,12 +290,12 @@
                 const scores = JSON.parse(localStorage.getItem(
                     tendency === 'dom' ? 'domScores' : 'subScores'
                 ));
-                
+
                 const topResults = getTopTendencies(scores);
-                
+
                 // 이미지 표시
                 displayResultImage(gender, tendency, topResults.topTendency);
-                
+
                 // Firestore에 데이터 저장
                 const testData = {
                     gender: gender,
@@ -308,10 +311,10 @@
                     },
                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 };
-                
+
                 await db.collection('test_results').add(testData);
                 console.log('테스트 결과가 성공적으로 저장되었습니다.');
-                
+
             } catch (error) {
                 console.error('결과 처리 중 오류 발생:', error);
             }
@@ -352,7 +355,7 @@
                 a.click();
                 window.URL.revokeObjectURL(url);
                 document.body.removeChild(a);
-                
+
                 showModal('이미지가 기기에 저장되었습니다.');
             } catch (error) {
                 console.error('이미지 저장 실패:', error);
@@ -387,8 +390,9 @@
             localStorage.removeItem('userTendency');
 
             // start.html로 이동
-            window.location.href = 'start.html';
+            window.location.href = './index.html';
         }
     </script>
 </body>
+
 </html>

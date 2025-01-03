@@ -40,8 +40,8 @@
         }
 
         .logo {
-            width: 160px;
-            margin: 0 auto 20px;
+            width: 120px;
+            margin: 40px auto 20px;
         }
 
         .progress-container {
@@ -199,7 +199,7 @@
         function saveGenderAndProceed() {
             if (selectedGender) {
                 localStorage.setItem('userGender', selectedGender);
-                window.location.href = 'tendency.html';
+                window.location.href = './tendency.html';
             } else {
                 alert('성별을 선택해 주세요.');
             }
@@ -231,7 +231,7 @@
             localStorage.removeItem('userTendency');
 
             // start.html로 이동
-            window.location.href = '/';
+            window.location.href = './index.html';
         }
     </script>
 </body>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,8 +40,8 @@
         }
 
         .logo {
-            width: 160px;
-            margin: 0 auto 20px;
+            width: 120px;
+            margin: 40px auto 20px;
         }
 
         .progress-container {
@@ -155,14 +156,15 @@
         }
     </style>
 </head>
+
 <body>
     <div class="smartphone-mockup">
         <img src="logo.png" alt="로고" class="logo">
-        
+
         <div class="progress-container">
-            <button class="back-button" onclick="location.href='gender.html'">
+            <button class="back-button" onclick="location.href='./gender.html'">
                 <svg viewBox="0 0 24 24">
-                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
                 </svg>
             </button>
             <div class="progress-bar">
@@ -172,7 +174,7 @@
         </div>
 
         <div class="question">관계에서 주로 상대방을<br>이끌고 주도하나요?</div>
-        
+
         <div class="option-group">
             <button class="option" onclick="selectTendency('dom')">네 (돔 성향)</button>
             <button class="option" onclick="selectTendency('sub')">아니요 (섭 성향)</button>
@@ -189,18 +191,18 @@
 
         function selectTendency(tendency) {
             selectedTendency = tendency;
-            
+
             // 선택된 옵션 스타일 변경
             document.querySelectorAll('.option').forEach(button => {
                 button.classList.remove('selected');
             });
-            
+
             // 선택된 성향에 해당하는 버튼 찾아서 selected 클래스 추가
             const selectedButton = document.querySelector(`.option[onclick*="${tendency}"]`);
             if (selectedButton) {
                 selectedButton.classList.add('selected');
             }
-            
+
             // 다음 버튼 활성화
             nextButton.disabled = false;
         }
@@ -261,12 +263,12 @@
             if (selectedTendency) {
                 localStorage.setItem('userTendency', selectedTendency);
                 initializeScores();  // 점수 초기화
-                
+
                 // 선택된 성향에 따라 다른 페이지로 이동
                 if (selectedTendency === 'dom') {
-                    window.location.href = 'dquestion1.html';
+                    window.location.href = './dquestion1.html';
                 } else if (selectedTendency === 'sub') {
-                    window.location.href = 'squestion1.html';
+                    window.location.href = './squestion1.html';
                 }
             } else {
                 alert('성향을 선택해주세요.');
@@ -274,11 +276,11 @@
         }
 
         // 페이지 로드 시 실행되는 함수에 점수 초기화 추가
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             // 성별 선택 여부 확인
             const gender = localStorage.getItem('userGender');
             if (!gender) {
-                location.href = 'gender.html';
+                location.href = './gender.html';
                 return;
             }
 
@@ -292,4 +294,5 @@
         });
     </script>
 </body>
+
 </html>
