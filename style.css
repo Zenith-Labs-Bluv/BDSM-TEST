@@ -1,0 +1,36 @@
+:root {
+    --primary-color: #7B6CFF;
+    --gradient-color: linear-gradient(135deg, #7B6CFF, #6C9FFF);
+    --bg-color: #050505;
+    --card-bg: #1A1A1A;
+    --text-color: #FFFFFF;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: none;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 6px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Pretendard', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    -webkit-tap-highlight-color: transparent;
+}
