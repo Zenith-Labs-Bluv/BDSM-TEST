@@ -25,10 +25,11 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: 'Pretendard', sans-serif;
-    min-height: 100vh;
+    height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
 button {
