@@ -31,7 +31,7 @@
 
         .logo {
             width: 120px;
-            margin: 40px 0;
+            margin: 40px 0 20px;
         }
 
         .main-title {
@@ -56,7 +56,7 @@
         .image-placeholder {
             width: calc(100% - 40px);
             border-radius: 20px;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
         }
 
         .start-button {
@@ -68,15 +68,15 @@
             font-size: 18px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: transform 0.3s ease;
             margin-top: auto;
-            margin-bottom: 16px;
+            margin-bottom: 26px;
             width: calc(100% - 40px);
             max-width: 320px;
         }
 
         .start-button:hover {
-            transform: scale(1.02);
+            transform: scale(1.05);
         }
 
         .start-button:active {
@@ -95,7 +95,7 @@
             text-align: center;
             color: rgba(255, 255, 255, 0.8);
             font-size: 15px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             font-weight: 500;
         }
     </style>
@@ -104,34 +104,49 @@
 <body>
     <div class="smartphone-mockup"><img src="./images/logo.webp" alt="로고" class="logo">
         <h1 class="main-title">BDSM 성향 테스트</h1>
-        <h2 class="sub-title">나의 숨겨진 성향이 만화 속 캐릭터라면?</h2><img src="./images/test_start.webp" alt="시작"
-            class="image-placeholder"><button onclick="startTest()" class="start-button">테스트 시작하기</button>
+        <h2 class="sub-title">나의 숨겨진 성향이 만화 속 캐릭터라면?</h2>
+        <img src="./images/test_start.webp" alt="시작" class="image-placeholder">
+        <button onclick="startTest()" class="start-button">테스트 시작하기</button>
         <div class="participant-count">참여자 수 | <span id="counter">0</span>명</div>
         <div class="hint-message">쉿,
             당신만을 위한 공간 BDSM Lover,
             BLUV</div>
     </div>
-    <script> // 카운터 초기화 및 표시
+    <script type="module"> // 카운터 초기화 및 표시
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js';
+        import { getDatabase, ref, get } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js';
 
-        function initializeCounter() {
-            let count = localStorage.getItem('participantCount');
+        const firebaseConfig = {
+            apiKey: "AIzaSyD_CHtoN2qgDHj5JRxUOzeyc9eSyP11tO4",
+            authDomain: "bluv-test.firebaseapp.com",
+            databaseURL: "https://bluv-test-default-rtdb.firebaseio.com/",
+            projectId: "bluv-test",
+            storageBucket: "bluv-test.firebasestorage.app",
+            messagingSenderId: "1090738855249",
+            appId: "1:1090738855249:web:980200f35ddffdf0a04770",
+            measurementId: "G-1TBGY1H1CC"
+        };
 
-            if (!count) {
-                localStorage.setItem('participantCount', '0'); // 초기값 0으로 설정
-                count = '0';
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        async function initializeCounter() {
+            try {
+                const snapshot = await get(ref(db, 'results/'));
+                const data = snapshot.val();
+                const length = Object.keys(data).length;
+                document.getElementById('counter').textContent = Number(length).toLocaleString();
+            } catch (error) {
+                console.error('Error getting data length:', error.message);
             }
-
-            document.getElementById('counter').textContent = Number(count).toLocaleString();
         }
 
+        // 페이지 로드 시 카운터 초기화
+        window.addEventListener('load', initializeCounter);
+    </script>
+    <script>
         // 테스트 시작 함수 수정
         function startTest() {
-            // 참여자 수 증가
-            let count = parseInt(localStorage.getItem('participantCount') || '0'); // 기본값 0으로 설정
-            count++;
-            localStorage.setItem('participantCount', count.toString());
-            document.getElementById('counter').textContent = count.toLocaleString();
-
             // 기존 데이터 초기화 및 페이지 이동
             localStorage.removeItem('gender');
             localStorage.removeItem('tendency');
@@ -144,11 +159,6 @@
 
             window.location.href = './gender.html';
         }
-
-        // 페이지 로드 시 카운터 초기화
-        window.addEventListener('load', function () {
-            initializeCounter();
-        });
     </script>
 </body>
 
