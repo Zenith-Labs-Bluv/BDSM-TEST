@@ -14,6 +14,19 @@
             --text-color: #FFFFFF;
         }
 
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: none;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #666;
+            border-radius: 6px;
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -538,7 +551,8 @@
     </div>
 
     <!-- 점수 현황판 UI 추가 -->
-    <div id="scoreBoard" style="margin: 20px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+    <div id="scoreBoard"
+        style="margin: 20px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; display: none;">
         <h3 style="color: white; margin-bottom: 10px;">현재 점수 현황</h3>
         <div id="currentScores" style="color: white; font-size: 14px;"></div>
     </div>
